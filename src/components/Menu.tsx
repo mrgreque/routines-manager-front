@@ -1,8 +1,5 @@
 function MenuDrawer() {
-  
-    return (
-      <p>Menu</p>
-    )
+  return <p>Menu</p>;
 }
 
-export { MenuDrawer }
+export { MenuDrawer };

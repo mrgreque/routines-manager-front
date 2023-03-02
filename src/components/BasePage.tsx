@@ -16,19 +16,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { palette } from '../theme/palette';
 import { Paper, Tooltip } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { IconBreadcrumbs } from './Breadcrumbs';
 
 export interface BasePageProps {
-    title: string;
-    children: JSX.Element;
-    inProject: boolean;
+  title: string;
+  children: JSX.Element;
+  inProject: boolean;
 }
 
 const drawerWidth = 240;
@@ -86,23 +83,23 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    backgroundColor: palette.secondary.main,
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-    boxSizing: 'border-box',
-    ...(open && {
-      ...openedMixin(theme),
-      '& .MuiDrawer-paper': openedMixin(theme),
-    }),
-    ...(!open && {
-      ...closedMixin(theme),
-      '& .MuiDrawer-paper': closedMixin(theme),
-    }),
+const Drawer = styled(MuiDrawer, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  backgroundColor: palette.secondary.main,
+  width: drawerWidth,
+  flexShrink: 0,
+  whiteSpace: 'nowrap',
+  boxSizing: 'border-box',
+  ...(open && {
+    ...openedMixin(theme),
+    '& .MuiDrawer-paper': openedMixin(theme),
   }),
-);
+  ...(!open && {
+    ...closedMixin(theme),
+    '& .MuiDrawer-paper': closedMixin(theme),
+  }),
+}));
 
 export default function BasePage(props: BasePageProps) {
   const navigate = useNavigate();
@@ -117,32 +114,32 @@ export default function BasePage(props: BasePageProps) {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  
+
   const drawerNavigate = {
-    'Geral': {
+    Geral: {
       pathname: `/projeto/${id}`,
       icon: <SettingsIcon />,
-    }, 
-    'Logs': {
+    },
+    Logs: {
       pathname: `/projeto/${id}/logs`,
       icon: <AssessmentIcon />,
-    }
-  }
+    },
+  };
 
   const drawerGeneralNavigate = {
-    'Home': {
+    Home: {
       pathname: `/`,
       icon: <SettingsIcon />,
-    }, 
-    'Projetos': {
+    },
+    Projetos: {
       pathname: `/projetos`,
       icon: <SettingsIcon />,
-    }, 
-    'Dashboard': {
+    },
+    Dashboard: {
       pathname: `/dashboard`,
       icon: <AssessmentIcon />,
-    }
-  }
+    },
+  };
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -171,84 +168,112 @@ export default function BasePage(props: BasePageProps) {
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+            {theme.direction === 'rtl' ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
-            { props.inProject ?
-                Object.keys(drawerNavigate).map((text: string, index) => (
-                  <Tooltip title={text}>
-                    <ListItem 
-                      key={text} 
-                      disablePadding 
-                      sx={{ display: 'block' }}
-                      onClick={() => {
-                        navigate(drawerNavigate[text as keyof typeof drawerNavigate].pathname);
+          {props.inProject
+            ? Object.keys(drawerNavigate).map((text: string, index) => (
+                <Tooltip title={text} key={index}>
+                  <ListItem
+                    key={text}
+                    disablePadding
+                    sx={{ display: 'block' }}
+                    onClick={() => {
+                      navigate(
+                        drawerNavigate[text as keyof typeof drawerNavigate]
+                          .pathname,
+                      );
+                    }}
+                  >
+                    <ListItemButton
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
                       }}
                     >
-                      <ListItemButton
+                      <ListItemIcon
                         sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          px: 2.5,
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
                         }}
                       >
-                        <ListItemIcon
-                          sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {drawerNavigate[text as keyof typeof drawerNavigate].icon}
-                        </ListItemIcon>
-                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
-                ))
-              :
-                Object.keys(drawerGeneralNavigate).map((text: string, index) => (
-                  <Tooltip title={text}>
-                    <ListItem 
-                      key={text} 
-                      disablePadding 
-                      sx={{ display: 'block' }}
-                      onClick={() => {
-                        navigate(drawerGeneralNavigate[text as keyof typeof drawerGeneralNavigate].pathname);
+                        {
+                          drawerNavigate[text as keyof typeof drawerNavigate]
+                            .icon
+                        }
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={text}
+                        sx={{ opacity: open ? 1 : 0 }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                </Tooltip>
+              ))
+            : Object.keys(drawerGeneralNavigate).map((text: string, index) => (
+                <Tooltip title={text} key={index}>
+                  <ListItem
+                    key={text}
+                    disablePadding
+                    sx={{ display: 'block' }}
+                    onClick={() => {
+                      navigate(
+                        drawerGeneralNavigate[
+                          text as keyof typeof drawerGeneralNavigate
+                        ].pathname,
+                      );
+                    }}
+                  >
+                    <ListItemButton
+                      sx={{
+                        minHeight: 48,
+                        justifyContent: open ? 'initial' : 'center',
+                        px: 2.5,
                       }}
                     >
-                      <ListItemButton
+                      <ListItemIcon
                         sx={{
-                          minHeight: 48,
-                          justifyContent: open ? 'initial' : 'center',
-                          px: 2.5,
+                          minWidth: 0,
+                          mr: open ? 3 : 'auto',
+                          justifyContent: 'center',
                         }}
                       >
-                        <ListItemIcon
-                          sx={{
-                            minWidth: 0,
-                            mr: open ? 3 : 'auto',
-                            justifyContent: 'center',
-                          }}
-                        >
-                          {drawerGeneralNavigate[text as keyof typeof drawerGeneralNavigate].icon}
-                        </ListItemIcon>
-                        <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-                      </ListItemButton>
-                    </ListItem>
-                  </Tooltip>
-                ))
-            }
+                        {
+                          drawerGeneralNavigate[
+                            text as keyof typeof drawerGeneralNavigate
+                          ].icon
+                        }
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={text}
+                        sx={{ opacity: open ? 1 : 0 }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                </Tooltip>
+              ))}
         </List>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3, minHeight: "100vh", backgroundColor: palette.secondary.main }}>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          minHeight: '100vh',
+          backgroundColor: palette.secondary.main,
+        }}
+      >
         <DrawerHeader />
-        <Paper 
-          elevation={3} 
-          sx={{ minHeight: 'calc(100% - 90px)'}}>
-            {props.children}
+        <Paper elevation={3} sx={{ minHeight: 'calc(100% - 90px)' }}>
+          {props.children}
         </Paper>
       </Box>
     </Box>

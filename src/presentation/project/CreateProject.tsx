@@ -1,26 +1,26 @@
-import { useState } from "react";
-import { connection } from "../../provider/connection";
+import { useState } from 'react';
+import { connection } from '../../provider/connection';
 
 function CreateProject() {
-  const [name, setName] = useState<string>("");
-  const [description, setDescription] = useState<string>("");
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
 
   const reset = () => {
-    setName("");
-    setDescription("");
+    setName('');
+    setDescription('');
   };
 
-  const save = (e: any) => {
+  const save = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     connection
-      .post("/project/insert", {
+      .post('/project/insert', {
         name,
         description,
       })
       .then((response) => {
         if (response.status === 201) {
           reset();
-          alert("Rotina criada com sucesso!");
+          alert('Rotina criada com sucesso!');
         }
       })
       .catch((error) => {

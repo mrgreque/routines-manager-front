@@ -9,37 +9,45 @@
 
 ## About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+This project is the Project Manager front-end that I'm developing. It was developed in React + Typescript, and communicates with the backend using HTTP requests.
 
 ## Getting Started <a name = "getting_started"></a>
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See [deployment](#deployment) for notes on how to deploy the project on a live system.
+You have two ways, one manually running the project, and installing the necessary packages:
 
 ### Prerequisites
 
-What things you need to install the software and how to install them.
+Node installed in v16.15.1
+Yarn installed in v1.22.19
+
+### Installing and Running
+
+When running this command, all necessary libraries will be installed
 
 ```
-Give examples
+yarn install
 ```
 
-### Installing
-
-A step by step series of examples that tell you how to get a development env running.
-
-Say what the step will be
+And then just initialize the project
 
 ```
-Give the example
+yarn dev
 ```
 
-And repeat
+### Docker
+
+Or you can run it directly from a Docker container
+
+### Prerequisites
+
+Docker installed.
+
+### Installing and Running
 
 ```
-until finished
+docker run -p 3000:3000 routine-manager-front
 ```
 
-End with an example of getting some data out of the system or using it for a little demo.
 
 ## Usage <a name = "usage"></a>
 
