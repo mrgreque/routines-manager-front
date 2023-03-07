@@ -89,6 +89,7 @@ function EditProject() {
       .then((response) => {
         setProject(response.data);
         setDefaultName(response.data.name);
+        console.log(response.data);
       })
       .catch((error) => {
         alert(error.response.data.message);
@@ -186,7 +187,7 @@ function EditProject() {
               type="checkbox"
               id="active"
               name="active"
-              defaultChecked={project.active}
+              checked={project.active}
               style={{
                 width: '20px',
                 height: '20px',
@@ -211,10 +212,13 @@ function EditProject() {
               type="checkbox"
               id="withError"
               name="withError"
-              defaultChecked={project.withError}
+              checked={project.withError}
               style={{
                 width: '20px',
                 height: '20px',
+              }}
+              onChange={() => {
+                console.log('oi');
               }}
               disabled
             />

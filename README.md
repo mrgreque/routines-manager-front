@@ -48,7 +48,6 @@ Docker installed.
 docker run -p 3000:3000 routine-manager-front
 ```
 
-
 ## Usage <a name = "usage"></a>
 
 Add notes about how to use the system.

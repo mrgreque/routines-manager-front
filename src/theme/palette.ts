@@ -15,8 +15,8 @@ export const palette = {
   },
   error: {
     main: '#770000',
-    light: '#770000',
-    dark: '#770000',
+    light: '#e84545',
+    dark: '#660a0a',
     contrastText: '#ffffff',
   },
   warning: {

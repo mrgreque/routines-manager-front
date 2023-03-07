@@ -21,6 +21,7 @@ import { Paper, Tooltip } from '@mui/material';
 import { useNavigate, useParams } from 'react-router-dom';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { SocketNotification } from './SocketNotification';
 
 export interface BasePageProps {
   title: string;
@@ -144,7 +145,7 @@ export default function BasePage(props: BasePageProps) {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-
+      <SocketNotification />
       <AppBar position="fixed" open={open}>
         <Toolbar>
           <IconButton

@@ -1,8 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { MenuDrawer } from '../../components/Menu';
 import { IProject } from '../../dtos/project';
 import { connection } from '../../provider/connection';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import Box from '@mui/system/Box';
+import { palette } from '../../theme/palette';
+import { Button } from '@mui/material';
 
 function ListProject() {
   const navigate = useNavigate();
@@ -19,36 +29,94 @@ function ListProject() {
   }, []);
 
   return (
-    <div>
-      <button
-        onClick={() => {
-          navigate('/criacao');
+    <Box
+      sx={{
+        px: 4,
+        py: 2,
+        color: palette.primary.main,
+      }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          margin: '20px 0',
         }}
       >
-        Criar Projeto
-      </button>
-      <h1>Listagem de Projetos</h1>
-      <MenuDrawer />
-      {projects.map((project) => {
-        return (
-          <div key={project._id}>
-            <h2>{project.name}</h2>
-            <p>{project.description}</p>
-            {project?.paths?.resultFolder ? (
-              <p>{project.paths.resultFolder}</p>
-            ) : null}
-            <button
-              key={project._id}
-              onClick={() => {
-                navigate(`/projeto/${project._id}`);
-              }}
-            >
-              Acessar teste
-            </button>
-          </div>
-        );
-      })}
-    </div>
+        <Button
+          variant="contained"
+          sx={{
+            color: palette.primary.contrastText,
+            backgroundColor: palette.primary.main,
+            '&:hover': {
+              backgroundColor: palette.secondary.light,
+            },
+          }}
+          onClick={() => {
+            navigate('/criacao');
+          }}
+        >
+          Criar Projeto
+        </Button>
+      </div>
+
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table">
+          <TableHead
+            sx={{
+              backgroundColor: palette.secondary.main,
+              height: '55px',
+            }}
+          >
+            <TableRow>
+              <TableCell
+                align="center"
+                sx={{
+                  color: palette.primary.contrastText,
+                }}
+              >
+                Projeto
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: palette.primary.contrastText,
+                }}
+              >
+                Descrição
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: palette.primary.contrastText,
+                }}
+              >
+                Acessar
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {projects.map((project) => (
+              <TableRow
+                key={project.name}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell align="center">{project.name}</TableCell>
+                <TableCell align="left">{project.description}</TableCell>
+                <TableCell align="center">
+                  <OpenInNewIcon
+                    style={{ width: '20px', cursor: 'pointer' }}
+                    onClick={() => {
+                      navigate(`/projeto/${project._id}`);
+                    }}
+                  />
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 }
 
