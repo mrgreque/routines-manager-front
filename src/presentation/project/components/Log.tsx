@@ -133,7 +133,7 @@ function Log() {
     connection
       .get(`/log/get/${id}`)
       .then((response) => {
-        setLogs(response.data);
+        setLogs(response.data.reverse());
       })
       .catch((error) => {
         alert(error.response.data.message);

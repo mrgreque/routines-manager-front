@@ -22,6 +22,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { SocketNotification } from './SocketNotification';
+import HomeIcon from '@mui/icons-material/Home';
+import AccountTreeIcon from '@mui/icons-material/AccountTree';
 
 export interface BasePageProps {
   title: string;
@@ -130,15 +132,11 @@ export default function BasePage(props: BasePageProps) {
   const drawerGeneralNavigate = {
     Home: {
       pathname: `/`,
-      icon: <SettingsIcon />,
+      icon: <HomeIcon />,
     },
     Projetos: {
       pathname: `/projetos`,
-      icon: <SettingsIcon />,
-    },
-    Dashboard: {
-      pathname: `/dashboard`,
-      icon: <AssessmentIcon />,
+      icon: <AccountTreeIcon />,
     },
   };
 

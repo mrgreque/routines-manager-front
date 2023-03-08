@@ -13,6 +13,7 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import Box from '@mui/system/Box';
 import { palette } from '../../theme/palette';
 import { Button } from '@mui/material';
+import CircleIcon from '@mui/icons-material/Circle';
 
 function ListProject() {
   const navigate = useNavigate();
@@ -91,6 +92,14 @@ function ListProject() {
                   color: palette.primary.contrastText,
                 }}
               >
+                Erro
+              </TableCell>
+              <TableCell
+                align="center"
+                sx={{
+                  color: palette.primary.contrastText,
+                }}
+              >
                 Acessar
               </TableCell>
             </TableRow>
@@ -103,6 +112,17 @@ function ListProject() {
               >
                 <TableCell align="center">{project.name}</TableCell>
                 <TableCell align="left">{project.description}</TableCell>
+                <TableCell align="center">
+                  {project.withError ? (
+                    <CircleIcon
+                      sx={{ color: palette.error.main, fontSize: '1.2em' }}
+                    />
+                  ) : (
+                    <CircleIcon
+                      sx={{ color: palette.success.main, fontSize: '1.2em' }}
+                    />
+                  )}
+                </TableCell>
                 <TableCell align="center">
                   <OpenInNewIcon
                     style={{ width: '20px', cursor: 'pointer' }}
